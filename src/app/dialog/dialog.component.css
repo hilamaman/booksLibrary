@@ -1,0 +1,41 @@
+#btn{
+    height: 30px;
+}
+button{
+    float: right;
+}
+
+
+.my-btn{
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    text-decoration: none;
+}
+
+.my-btn:hover, .my-btn:focus {
+    color: #000;
+    text-decoration: none;
+    opacity: .75;
+}
+
+.my-btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+button.my-btn{
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+#dialog .content{
+    margin: 3%;
+    padding: 0;
+    width: 90%;
+}

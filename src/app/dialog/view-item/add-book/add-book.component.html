@@ -1,0 +1,65 @@
+<h2 id="title">Add New Book</h2>
+<form (ngSubmit)="onSave()" #add="ngForm">
+  <div class="form-group">
+    <label for="id">ID</label>
+    <input type="text"
+           id="id"
+           class="item-number form-control"
+           name="id"
+           [ngModel]=" book.id "
+           required
+           #id="ngModel"
+           placeholder="{{ book.id}}">
+    <span class="form-text text-muted" *ngIf="!validId && id.touched">This Id Already Exist. Please Choose Another.</span>
+    <span class="form-text text-muted" *ngIf="!id.valid && id.touched">This is a required field !</span>
+
+    <label for="title">Title</label>
+    <input type="text"
+           id="title item-name"
+           class="form-control"
+           name="title"
+           [ngModel]=" book.title "
+           required
+           #title="ngModel"
+           placeholder="{{ book.title }}">
+    <span class="form-text text-muted" *ngIf="!title.valid && title.touched">This is a required field !</span>
+    <span class="form-text text-muted" *ngIf="!validTitle && title.touched">This Book Name Already Exist. Please Choose Another.</span>
+
+    <label for="author">Author</label>
+    <input type="text"
+           id="author"
+           class="form-control"
+           name="author"
+           [ngModel]=" book.author "
+           required
+           #author="ngModel">
+    <span class="form-text text-muted" *ngIf="!author.valid && author.touched">This is a required field !</span>
+
+    <label for="date">Publication Date</label>
+    <input type="number"
+           id="date"
+           min="1500"
+           max="2018"
+           class="item-number form-control"
+           name="date"
+           [ngModel]=" book.publicationDate "
+           required
+           #date="ngModel">
+    <span class="form-text text-muted" *ngIf="!date.valid && date.touched">This is a required field !</span>
+    <span class="form-text text-muted" *ngIf="!validDate && date.touched">Please Enter A Valid Date (1500-2018)</span>
+
+    <div id="save">
+      <button
+              class="btn btn-success"
+              [disabled]="!add.valid"
+              (click)="onSave()"
+              type="button">Save Changes</button>
+    </div>
+    <div id="cancel">
+      <button
+              class="btn btn-danger"
+              (click)="onCancel()"
+              type="button"> Cancel</button>
+    </div>
+  </div>
+</form>

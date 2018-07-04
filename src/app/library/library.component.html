@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="row full-width">
+    <div class="newBook">
+      <button type="button" class="btn btn-primary back-btn" (click)="onAddNew()">Add New Book <span class="lnr lnr-book"></span></button>
+    </div>
+  </div>
+
+  <div class="items" *ngFor="let book of newArrBooks">
+    <div class="book">
+      <div class="book-img">
+      <img
+              alt="{{book.title}}" name="{{book.title}}"
+              [src]="book.imagePath">
+      </div>
+      <div class="book-title" >{{book.title.length > 54 ? book.title.substr(0,14)+".." : book.title}}</div>
+      <div class="book-title author">{{book.author.length > 54 ? book.author.substr(0, 14) + '..' : book.author}}</div>
+      <div class="book-title price">{{book.publicationDate}}</div>
+
+      <div class="btns">
+        <div class="btnl">
+          <button type="button" class="btn btn-success back-btn" (click)="onEdit(book)">Edit <span class="lnr lnr-pencil"></span></button>
+        </div>
+        <div class="btnr">
+          <button type="button" class="btn btn-danger back-btn" (click)="onDelete(book)">Delete <span class="lnr lnr-trash"></span></button>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row full-width" *ngIf="!endOfFile">
+  <div class="centered">
+    <button type="button" class="btn btn-dark back-btn" (click)="onLoadMore()">Load More</button>
+  </div>
+</div>
+</div>

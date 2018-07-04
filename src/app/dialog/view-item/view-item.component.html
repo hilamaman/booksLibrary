@@ -1,0 +1,11 @@
+<div class="container" *ngIf="editMode && !deleteMode && !AddMode">
+<app-edit-book></app-edit-book>
+</div>
+
+<div class="container" *ngIf="deleteMode && !editMode && !AddMode">
+<app-delete-book></app-delete-book>
+</div>
+
+<div class="container" *ngIf="!deleteMode && !editMode && AddMode">
+    <app-add-book></app-add-book>
+</div>

@@ -1,0 +1,53 @@
+label,
+#save,
+#cancel{
+    margin-top: 20px;
+}
+
+#title{
+    text-align: center;
+}
+input.ng-valid.ng-touched{
+    border: 1px solid green;
+}
+
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+#item-name{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: x-large;
+}
+
+.item-number{
+    font-weight: 300;
+    font-size: small;
+}
+
+.item-price{
+    font-size: medium;
+}
+
+#author{
+    font-weight: 400;
+}
+
+#save, #cancel{
+    float: left;
+}
+#save{
+    margin-right: 7rem;
+}
+
+@media screen and (max-width: 1017px){
+    #save button,
+    #cancel button{
+        font-size: 15px;
+    }
+    #save {
+        margin-right: 1rem;
+    }
+}

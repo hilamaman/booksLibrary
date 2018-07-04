@@ -1,0 +1,25 @@
+.header-wrapper{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 100px;
+}
+
+#my-nav{
+    border-bottom: 1px solid lightgray;
+}
+.navbar-brand{
+    margin: auto;
+}
+
+.title{
+    font-size: xx-large;
+    float: left;
+    margin-right: 5px;
+}
+
+#img{
+    float: left;
+    height: 40px;
+}
