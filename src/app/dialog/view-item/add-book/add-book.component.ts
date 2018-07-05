@@ -14,9 +14,9 @@ export class AddBookComponent implements OnInit {
 
   book: Book;
   validTitle = true;
-  validId = true;
   validDate = true;
   @ViewChild('add') addForm: NgForm;
+  newId: string;
 
   constructor(private dialogRef: MatDialogRef<DialogComponent>,
               private libraryService: LibraryService) { }
@@ -26,13 +26,19 @@ export class AddBookComponent implements OnInit {
   }
 
   isValidId() {
-      this.validId = true;
+      let id = this.libraryService.getNewId();
       const allBooks = this.libraryService.getArrBooks();
-      for (const book of allBooks) {
-          if (book.id === this.addForm.value.id) {
-              this.validId = false;
+      let foundNewId = false;
+      while (!foundNewId) {
+          for (const book of allBooks) {
+              if (book.id === id.toString()) {
+                  id = id + 1;
+              }
           }
+          foundNewId = true;
       }
+      this.newId = id.toString();
+      this.libraryService.setNewId(id + 1);
   }
 
   isValidTitle() {
@@ -59,8 +65,8 @@ export class AddBookComponent implements OnInit {
       this.isValidId();
       this.isValidTitle();
       this.isValidDate();
-      if (this.validTitle && this.validId && this.validDate) {
-          this.book.id = this.addForm.value.id;
+      if (this.validTitle && this.validDate) {
+          this.book.id = this.newId;
           const titleToCheck = this.addForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
           this.book.title = this.libraryService.toUpper(titleToCheck);
           this.book.author = this.libraryService.toUpper(this.addForm.value.author.replace(/[^a-zA-Z_ ]/g, '').toString());

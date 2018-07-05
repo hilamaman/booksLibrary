@@ -1,7 +1,7 @@
-<h2 id="title">Edit</h2>
+<h2 id="title">Edit Book</h2>
 <form (ngSubmit)="onSave()" #edit="ngForm">
   <div class="form-group">
-    <label for="id">Book ID</label>
+    <label for="id">ID</label>
     <input type="text"
            id="id"
            class="item-number form-control"
@@ -12,7 +12,7 @@
            placeholder="{{ book.id}}"
            readonly="readonly">
 
-    <label for="title">Book Title</label>
+    <label for="title">Title</label>
     <input type="text"
            id="title item-name"
            class="form-control"
@@ -24,7 +24,7 @@
     <span class="form-text text-muted" *ngIf="!title.valid && title.touched">This is a required field !</span>
     <span class="form-text text-muted" *ngIf="!validTitle && title.touched">This Book Name Already Exist. Please Choose Another.</span>
 
-    <label for="author">Book Author</label>
+    <label for="author">Author</label>
     <input type="text"
            id="author"
            class="form-control"
@@ -34,7 +34,7 @@
            #author="ngModel">
     <span class="form-text text-muted" *ngIf="!author.valid && author.touched">This is a required field !</span>
 
-    <label for="date">Book Publication Date</label>
+    <label for="date">Publication Year</label>
     <input type="number"
            id="date"
            min="1700"

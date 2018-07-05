@@ -2,7 +2,6 @@ import {Book} from '../shared/book.model';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
-
 @Injectable()
 export class LibraryService {
     book = new Book('', '', '', '', '');
@@ -14,6 +13,7 @@ export class LibraryService {
     editMode = false;
     deleteMode = false;
     AddMode = false;
+    newId = 10000;
 
     setTotalItems(data) {
         this.totalItems = data.totalItems;
@@ -121,8 +121,15 @@ export class LibraryService {
     }
 
     addNewBook(bookToAdd) {
-        this.arrBooks.push(bookToAdd);
+        this.arrBooks.unshift(bookToAdd);
         this.totalItems = this.totalItems + 1;
         this.arrBooksHasChanged.next(this.arrBooks);
+    }
+
+    getNewId() {
+        return this.newId;
+    }
+    setNewId(id) {
+     this.newId = id ;
     }
 }

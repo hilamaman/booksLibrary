@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="row full-width" *ngIf="!endOfFile">
-  <div class="centered">
+  <div class="centered" id="loadMore" #loadMore>
     <button type="button" class="btn btn-dark back-btn" (click)="onLoadMore()">Load More</button>
   </div>
 </div>

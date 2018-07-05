@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import { DeleteBookComponent } from './dialog/view-item/delete-book/delete-book.component';
 import { EditBookComponent } from './dialog/view-item/edit-book/edit-book.component';
 import { AddBookComponent } from './dialog/view-item/add-book/add-book.component';
+import {PageScrollService} from 'ngx-page-scroll';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AddBookComponent } from './dialog/view-item/add-book/add-book.component
         DialogComponent
     ],
   providers: [
-      LibraryService
+      LibraryService,
+      PageScrollService
   ],
   bootstrap: [AppComponent]
 })

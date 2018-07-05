@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {DialogComponent} from '../dialog/dialog.component';
 import {Book} from '../shared/book.model';
@@ -16,6 +16,7 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
     constructor (private httpService: HttpClient,
                  private libraryService: LibraryService,
                  public dialog: MatDialog) { }
+
     newArrBooks: Book [];
     index = 12;
     totalItems = 0;
