@@ -76,7 +76,7 @@ export class AddBookComponent implements OnInit {
           this.book.publicationDate = this.addForm.value.date;
         if (this.addMode) {
           this.book.id = this.newId;
-          this.book.imagePath = '../assets/books-stack.svg';
+          this.book.imagePath = './assets/books-stack.svg';
           this.libraryService.addNewBook(this.book);
           this.onCancel();
         }
