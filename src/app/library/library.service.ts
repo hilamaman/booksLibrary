@@ -35,7 +35,7 @@ export class LibraryService {
             book.publicationDate = item.volumeInfo.publishedDate === undefined ? 1500 :
               (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate :
                 item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
-            (this.arrBooks === undefined ? this.arrBooks[0] = book : this.arrBooks.push(book));
+            this.arrBooks === undefined ? this.arrBooks[0] = book : this.arrBooks.push(book);
         }
         this.arrBooksHasChanged.next(this.arrBooks);
     }
@@ -118,7 +118,6 @@ export class LibraryService {
         this.arrBooks.unshift(bookToAdd);
         this.totalItems = this.totalItems + 1;
         this.arrBooksHasChanged.next(this.arrBooks);
-        console.log(this.arrBooks);
     }
 
     getNewId() {

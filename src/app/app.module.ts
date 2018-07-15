@@ -12,7 +12,6 @@ import { ViewItemComponent } from './dialog/view-item/view-item.component';
 import {LibraryService} from './library/library.service';
 import {FormsModule} from '@angular/forms';
 import { DeleteBookComponent } from './dialog/view-item/delete-book/delete-book.component';
-import { EditBookComponent } from './dialog/view-item/edit-book/edit-book.component';
 import { AddBookComponent } from './dialog/view-item/add-book/add-book.component';
 import {PageScrollService} from 'ngx-page-scroll';
 import { ToUpperPipe } from './shared/to-upper.pipe';
@@ -25,7 +24,6 @@ import { ToUpperPipe } from './shared/to-upper.pipe';
     DialogComponent,
     ViewItemComponent,
     DeleteBookComponent,
-    EditBookComponent,
     AddBookComponent,
     ToUpperPipe
   ],

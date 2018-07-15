@@ -24,11 +24,12 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
     openDeleteBook = false;
     openAddBook = false;
     dialogRef: MatDialogRef<DialogComponent>;
+    url = 'https://www.googleapis.com/books/v1/volumes?q=flowers&printType=books&maxResults=12&fields=kind,'
+      + 'totalItems,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks)';
 
 
     ngOnInit () {
-        this.httpService.get('https://www.googleapis.com/books/v1/volumes?q=flowers&printType=books&maxResults=12' +
-            '&fields=kind,totalItems,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks)')
+        this.httpService.get(this.url)
             .subscribe(
                 data => {
                     this.libraryService.setTotalItems(data);
@@ -50,12 +51,10 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
 
     onLoadMore() {
         if (this.totalItems - this.index > 0) {
-            this.httpService.get('https://www.googleapis.com/books/v1/volumes?q=flowers&printType=books&maxResults=12' +
-                '&fields=kind,totalItems,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks)' +
-                '&startIndex=' + this.index)
+            this.httpService.get(this.url + '&startIndex=' + this.index)
                 .subscribe(
                     data => {
-                        this.libraryService.updateArrBooks(data);
+                        this.libraryService.setArrBooks(data);
                     },
                     (err: HttpErrorResponse) => {
                         console.log(err.message);
@@ -68,32 +67,26 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
             this.endOfFile = true;
         }
     }
-
-
     onEdit(item) {
-        const book = new Book(item.id,
-            item.title,
-            item.author,
-            item.publicationDate,
-            item.imagePath);
-        this.openDialog();
-        this.libraryService.setEditMode();
-        this.libraryService.setBook(book);
-        this.openEditBook = true;
+      this.onChangeBook(item);
+      this.libraryService.setEditMode();
+      this.openEditBook = true;
     }
 
     onDelete(item) {
-        const book = new Book(item.id,
-            item.title,
-            item.author,
-            item.publicationDate,
-            item.imagePath);
-        this.openDialog();
-        this.libraryService.setDeleteMode();
-        this.libraryService.setBook(book);
-        this.openDeleteBook = true;
+      this.onChangeBook(item);
+      this.libraryService.setDeleteMode();
+      this.openDeleteBook = true;
     }
-
+    onChangeBook(item) {
+      const book = new Book(item.id,
+        item.title,
+        item.author,
+        item.publicationDate,
+        item.imagePath);
+      this.openDialog();
+      this.libraryService.setBook(book);
+    }
     onAddNew() {
         this.openDialog();
         this.libraryService.setAddMode();
