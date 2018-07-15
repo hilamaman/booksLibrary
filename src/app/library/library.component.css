@@ -77,6 +77,13 @@
     width: 90%;
     margin: 0 auto;
 }
+
+.ellipses {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 @media screen and (max-width: 1017px){
     .book img{
         height: 80px;

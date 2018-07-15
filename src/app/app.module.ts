@@ -15,6 +15,7 @@ import { DeleteBookComponent } from './dialog/view-item/delete-book/delete-book.
 import { EditBookComponent } from './dialog/view-item/edit-book/edit-book.component';
 import { AddBookComponent } from './dialog/view-item/add-book/add-book.component';
 import {PageScrollService} from 'ngx-page-scroll';
+import { ToUpperPipe } from './shared/to-upper.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {PageScrollService} from 'ngx-page-scroll';
     ViewItemComponent,
     DeleteBookComponent,
     EditBookComponent,
-    AddBookComponent
+    AddBookComponent,
+    ToUpperPipe
   ],
   imports: [
     BrowserModule,

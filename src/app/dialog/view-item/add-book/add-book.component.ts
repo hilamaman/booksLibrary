@@ -17,12 +17,17 @@ export class AddBookComponent implements OnInit {
   validDate = true;
   @ViewChild('add') addForm: NgForm;
   newId: string;
+  addMode = false;
+  editMode = false;
+
 
   constructor(private dialogRef: MatDialogRef<DialogComponent>,
               private libraryService: LibraryService) { }
 
   ngOnInit() {
-    this.book = new Book('', '', '', '', '');
+    this.book = new Book('', '', '', 0, '');
+    this.addMode = this.libraryService.AddMode;
+    this.editMode = this.libraryService.editMode;
   }
 
   isValidId() {
@@ -43,11 +48,10 @@ export class AddBookComponent implements OnInit {
 
   isValidTitle() {
       this.validTitle = true;
-      let titleToCheck = this.addForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
-      titleToCheck = this.libraryService.toUpper(titleToCheck);
+      const titleToCheck = this.addForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString().toLowerCase();
       const allBooks = this.libraryService.getArrBooks();
       for (const book of allBooks) {
-          if (book.title === titleToCheck) {
+          if (book.title.toLowerCase() === titleToCheck) {
                   this.validTitle = false;
           }
       }
@@ -66,13 +70,21 @@ export class AddBookComponent implements OnInit {
       this.isValidTitle();
       this.isValidDate();
       if (this.validTitle && this.validDate) {
-          this.book.id = this.newId;
           const titleToCheck = this.addForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
-          this.book.title = this.libraryService.toUpper(titleToCheck);
-          this.book.author = this.libraryService.toUpper(this.addForm.value.author.replace(/[^a-zA-Z_ ]/g, '').toString());
+          this.book.title = titleToCheck;
+          this.book.author = this.addForm.value.author.replace(/[^a-zA-Z_, ]/g, '').toString();
           this.book.publicationDate = this.addForm.value.date;
+        if (this.addMode) {
+          this.book.id = this.newId;
           this.book.imagePath = '../assets/books-stack.svg';
           this.libraryService.addNewBook(this.book);
+          this.onCancel();
+        }
+        if (this.editMode) {
+          this.book.id = this.addForm.value.id;
+          this.libraryService.changeBookDetails(this.book);
+          this.onCancel();
+        }
           this.onCancel();
       }
   }

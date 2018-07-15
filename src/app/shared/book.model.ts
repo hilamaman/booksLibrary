@@ -3,6 +3,6 @@ export class Book {
         public id: string,
         public title: string,
         public author: string,
-        public publicationDate: string,
+        public publicationDate: number,
         public imagePath: string) {}
 }

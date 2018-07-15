@@ -1,23 +1,27 @@
-<h2 id="title">Add New Book</h2>
+<div id="title">
+  <h2 *ngIf="addMode && !editMode">Add New Book</h2>
+  <h2 *ngIf="!addMode && editMode">Edit Book</h2>
+</div>
 <form (ngSubmit)="onSave()" #add="ngForm">
   <div class="form-group">
 
     <label for="title">Title</label>
     <input type="text"
            id="title item-name"
-           class="form-control"
+           class="form-control ellipses"
            name="title"
            [ngModel]=" book.title "
            required
            #title="ngModel"
-           placeholder="{{ book.title }}">
+           placeholder="{{ book.title}}">
     <span class="form-text text-muted" *ngIf="!title.valid && title.touched">This is a required field !</span>
-    <span class="form-text text-muted" *ngIf="!validTitle && title.touched">This Book Name Already Exist. Please Choose Another.</span>
+    <span class="form-text text-muted" *ngIf="!validTitle && title.touched">
+      This Book Name Already Exist. Please Choose Another.</span>
 
     <label for="author">Author</label>
     <input type="text"
            id="author"
-           class="form-control"
+           class="form-control ellipses"
            name="author"
            [ngModel]=" book.author "
            required
@@ -42,7 +46,8 @@
               class="btn btn-success"
               [disabled]="!add.valid"
               (click)="onSave()"
-              type="button">Add Book</button>
+              type="button">
+              Save</button>
     </div>
     <div id="cancel">
       <button

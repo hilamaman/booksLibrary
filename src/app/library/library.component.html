@@ -12,16 +12,18 @@
               alt="{{book.title}}" name="{{book.title}}"
               [src]="book.imagePath">
       </div>
-      <div class="book-title" >{{book.title.length > 54 ? book.title.substr(0,14)+".." : book.title}}</div>
-      <div class="book-title author">{{book.author.length > 54 ? book.author.substr(0, 14) + '..' : book.author}}</div>
+      <div class="book-title ellipses" >{{book.title | toUpper }}</div>
+      <div class="book-title author ellipses">{{book.author | toUpper }}</div>
       <div class="book-title price">{{book.publicationDate}}</div>
 
       <div class="btns">
         <div class="btnl">
-          <button type="button" class="btn btn-success back-btn" (click)="onEdit(book)">Edit <span class="lnr lnr-pencil"></span></button>
+          <button type="button" class="btn btn-success back-btn" (click)="onEdit(book)">Edit
+            <span class="lnr lnr-pencil"></span></button>
         </div>
         <div class="btnr">
-          <button type="button" class="btn btn-danger back-btn" (click)="onDelete(book)">Delete <span class="lnr lnr-trash"></span></button>
+          <button type="button" class="btn btn-danger back-btn" (click)="onDelete(book)">Delete
+            <span class="lnr lnr-trash"></span></button>
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import {Book} from '../shared/book.model';
 import {LibraryService} from './library.service';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
-
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',

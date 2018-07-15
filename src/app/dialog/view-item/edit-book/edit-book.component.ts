@@ -27,8 +27,8 @@ export class EditBookComponent implements OnInit {
     isValidTitle(touched) {
         if (touched) {
             this.validTitle = true;
-            let titleToCheck = this.editForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
-            titleToCheck = this.libraryService.toUpper(titleToCheck);
+            const titleToCheck = this.editForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
+            // titleToCheck = this.libraryService.toUpper(titleToCheck);
             const allBooks = this.libraryService.arrBooks;
             for (const book of allBooks) {
                 if (book.title === titleToCheck) {
@@ -58,8 +58,8 @@ export class EditBookComponent implements OnInit {
         if (this.validTitle && this.validDate) {
             this.book.id = this.editForm.value.id;
             const titleToCheck = this.editForm.value.title.replace(/[^a-zA-Z_ ]/g, '').toString();
-            this.book.title = this.libraryService.toUpper(titleToCheck);
-            this.book.author = this.libraryService.toUpper(this.editForm.value.author.replace(/[^a-zA-Z_ ]/g, '').toString());
+            this.book.title = titleToCheck;
+            this.book.author = this.editForm.value.author.replace(/[^a-zA-Z_ ]/g, '').toString();
             this.book.publicationDate = this.editForm.value.date;
             this.libraryService.changeBookDetails(this.book);
             this.onCancel();

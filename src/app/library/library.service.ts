@@ -4,7 +4,7 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class LibraryService {
-    book = new Book('', '', '', '', '');
+    book = new Book('', '', '', 0, '');
     totalItems = 0;
     bookHasChanged = new Subject();
     totalItemsHasChanged = new Subject();
@@ -24,40 +24,35 @@ export class LibraryService {
         return this.totalItems;
     }
 
-    toUpper(str) {
-        str = str.toLowerCase().split(' ').map(function (word) {
-            return word[0] === undefined ?  '' + word.substr(1) : word[0].toUpperCase() + word.substr(1);
-        }).join(' ');
-        return str;
-    }
-
     setArrBooks(data) {
         for (const item of data.items) {
-            const book = new Book('', '', '', '', '');
+            const book = new Book('', '', '', 0, '');
             book.id = item.id;
-            book.title = item.volumeInfo.title === undefined ? '' : this.toUpper(item.volumeInfo.title.toString());
-            book.author = item.volumeInfo.authors === undefined ? '' : this.toUpper(item.volumeInfo.authors[0]);
-            book.imagePath = item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail : '../assets/books-stack.svg';
-            book.publicationDate = item.volumeInfo.publishedDate === undefined ? '' : (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate : item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
+            book.title = item.volumeInfo.title;
+            book.author = item.volumeInfo.authors !== undefined ? item.volumeInfo.authors[0] : item.volumeInfo.authors;
+            book.imagePath = item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail :
+              '../assets/books-stack.svg';
+            book.publicationDate = item.volumeInfo.publishedDate === undefined ? 1500 :
+              (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate :
+                item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
             (this.arrBooks === undefined ? this.arrBooks[0] = book : this.arrBooks.push(book));
         }
         this.arrBooksHasChanged.next(this.arrBooks);
     }
 
     updateArrBooks(data) {
-        const newArr: Book[] = [];
         for (const item of data.items) {
-            const book = new Book('', '', '', '', '');
+            const book = new Book('', '', '', 0, '');
             book.id = item.id;
-            book.title = item.volumeInfo.title === undefined ? '' : this.toUpper(item.volumeInfo.title);
-            book.author = item.volumeInfo.authors === undefined ? '' : this.toUpper(item.volumeInfo.authors[0]);
-            book.imagePath = item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail : '../assets/books-stack.svg';
-            book.publicationDate = item.volumeInfo.publishedDate === undefined ? '' : (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate : item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
+            book.title = item.volumeInfo.title;
+            book.author = item.volumeInfo.authors !== undefined ? item.volumeInfo.authors[0] : item.volumeInfo.authors;
+            book.imagePath = item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail :
+              '../assets/books-stack.svg';
+            book.publicationDate = item.volumeInfo.publishedDate === undefined ? '' :
+              (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate :
+                item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
             this.arrBooks.push(book);
         }
-        console.log(newArr);
-
-        console.log(this.arrBooks);
         this.arrBooksHasChanged.next(this.arrBooks);
     }
 
@@ -93,7 +88,6 @@ export class LibraryService {
         return this.book;
     }
 
-
     changeBookDetails(bookToChange) {
         let index = 0;
         for (const book of this.arrBooks) {
@@ -124,6 +118,7 @@ export class LibraryService {
         this.arrBooks.unshift(bookToAdd);
         this.totalItems = this.totalItems + 1;
         this.arrBooksHasChanged.next(this.arrBooks);
+        console.log(this.arrBooks);
     }
 
     getNewId() {
