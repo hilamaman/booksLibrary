@@ -31,7 +31,7 @@ export class LibraryService {
             book.title = item.volumeInfo.title;
             book.author = item.volumeInfo.authors !== undefined ? item.volumeInfo.authors[0] : item.volumeInfo.authors;
             book.imagePath = item.volumeInfo.imageLinks !== undefined ? item.volumeInfo.imageLinks.smallThumbnail :
-              './assets/books-stack.svg';
+              '../assets/books-stack.svg';
             book.publicationDate = item.volumeInfo.publishedDate === undefined ? 1500 :
               (item.volumeInfo.publishedDate.indexOf('-') < 0 ? item.volumeInfo.publishedDate :
                 item.volumeInfo.publishedDate.substr(0, item.volumeInfo.publishedDate.indexOf('-')));
