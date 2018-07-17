@@ -6,7 +6,8 @@
           name="keyword"
           [ngModel]=" keyword.value "
           #keyword="ngModel"
-          placeholder="Search for books by keyword">
+          placeholder="Search for books by keyword"
+          (keyup)="keyPress($event, keyword.value)">
     <button type="button" class="btn btn-success back-btn" (click)="searchKeyword(keyword.value)">Search</button>
   </div>
 </div>

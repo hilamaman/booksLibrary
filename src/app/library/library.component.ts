@@ -39,7 +39,6 @@ export class LibraryComponent implements OnChanges, OnDestroy {
                     this.totalItems = this.libraryService.getTotalItems();
                     this.libraryService.setArrBooks(data);
                     this.newArrBooks = this.libraryService.getArrBooks();
-                    console.log(this.newArrBooks);
                     this.validKeyword = true;
                     this.updateUrl = this.url + '&q=' + this.keyword;
                 },
@@ -65,7 +64,11 @@ export class LibraryComponent implements OnChanges, OnDestroy {
             this.newArrBooks = this.libraryService.getArrBooks();
         }
     }
-
+    keyPress(e, keyword) {
+      if (e.keyCode === 13) {
+        this.searchKeyword(keyword);
+      }
+    }
     onLoadMore() {
       this.libraryService.setKeywordChanged(false);
         if (this.totalItems - this.index > 0) {
