@@ -12,6 +12,14 @@
     margin: 10px;
 }
 
+.search{
+  width: 70%;
+  float: none;
+  margin: 10% auto;
+}
+.input-search{
+  margin:20px auto;
+}
 .book-title{
     text-decoration: none;
     color: black;
@@ -56,8 +64,7 @@
 }
 
 .newBook{
-    margin-bottom: 20px;
-    width: 100%;
+  margin: 0 auto 20px;
 }
 
 .btnl{

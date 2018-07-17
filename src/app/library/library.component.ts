@@ -10,7 +10,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.css']
 })
-export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
+export class LibraryComponent implements OnChanges, OnDestroy {
 
     constructor (private httpService: HttpClient,
                  private libraryService: LibraryService,
@@ -24,23 +24,40 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
     openDeleteBook = false;
     openAddBook = false;
     dialogRef: MatDialogRef<DialogComponent>;
-    url = 'https://www.googleapis.com/books/v1/volumes?q=flowers&printType=books&maxResults=12&fields=kind,'
+    validKeyword = false;
+    keyword = '';
+    url = 'https://www.googleapis.com/books/v1/volumes?printType=books&maxResults=12&fields=kind,'
       + 'totalItems,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/imageLinks)';
+    updateUrl = '';
 
 
-    ngOnInit () {
-        this.httpService.get(this.url)
+    onLoad () {
+        this.httpService.get(this.url + '&q=' + this.keyword)
             .subscribe(
                 data => {
                     this.libraryService.setTotalItems(data);
                     this.totalItems = this.libraryService.getTotalItems();
                     this.libraryService.setArrBooks(data);
                     this.newArrBooks = this.libraryService.getArrBooks();
+                    console.log(this.newArrBooks);
+                    this.validKeyword = true;
+                    this.updateUrl = this.url + '&q=' + this.keyword;
                 },
                 (err: HttpErrorResponse) => {
-                    console.log (err.message);
+                    this.validKeyword = false;
+                    console.log(err);
                 }
             );
+    }
+
+    searchKeyword(keyword) {
+      this.keyword = keyword;
+      this.onLoad();
+    }
+
+    onSearch() {
+      this.validKeyword = false;
+      this.libraryService.setKeywordChanged(true);
     }
 
     ngOnChanges() {
@@ -50,8 +67,9 @@ export class LibraryComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     onLoadMore() {
+      this.libraryService.setKeywordChanged(false);
         if (this.totalItems - this.index > 0) {
-            this.httpService.get(this.url + '&startIndex=' + this.index)
+            this.httpService.get(this.updateUrl + '&startIndex=' + this.index)
                 .subscribe(
                     data => {
                         this.libraryService.setArrBooks(data);

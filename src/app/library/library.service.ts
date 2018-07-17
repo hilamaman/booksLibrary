@@ -14,17 +14,26 @@ export class LibraryService {
     deleteMode = false;
     AddMode = false;
     newId = 10000;
+    keywordChanged = false;
+    keywordHasChanged = new Subject();
 
     setTotalItems(data) {
         this.totalItems = data.totalItems;
         this.totalItemsHasChanged.next(this.totalItems);
     }
 
+    setKeywordChanged(state) {
+      this.keywordChanged = state;
+      this.keywordHasChanged.next(this.keywordChanged);
+    }
     getTotalItems() {
         return this.totalItems;
     }
 
     setArrBooks(data) {
+      if (this.keywordChanged) {
+        this.arrBooks = [];
+      }
         for (const item of data.items) {
             const book = new Book('', '', '', 0, '');
             book.id = item.id;

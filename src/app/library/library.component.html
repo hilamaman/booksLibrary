@@ -1,7 +1,23 @@
-<div class="row">
+<div class="row" *ngIf="!validKeyword">
+  <div class="items search">
+    <input
+          type="text"
+          class="form-control input-search"
+          name="keyword"
+          [ngModel]=" keyword.value "
+          #keyword="ngModel"
+          placeholder="Search for books by keyword">
+    <button type="button" class="btn btn-success back-btn" (click)="searchKeyword(keyword.value)">Search</button>
+  </div>
+</div>
+
+<div class="row" *ngIf="validKeyword">
   <div class="row full-width">
     <div class="newBook">
       <button type="button" class="btn btn-primary back-btn" (click)="onAddNew()">Add New Book <span class="lnr lnr-book"></span></button>
+    </div>
+    <div class="newBook">
+      <button type="button" class="btn btn-info back-btn" (click)="onSearch()">Search For New Books <span class="lnr lnr-magnifier"></span></button>
     </div>
   </div>
 
